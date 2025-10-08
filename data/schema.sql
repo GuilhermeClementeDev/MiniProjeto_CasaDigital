@@ -1,0 +1,17 @@
+\c postgres;
+DROP DATABASE IF EXISTS edutech;
+CREATE DATABASE edutech;
+\c edutech;
+
+CREATE TABLE alunos(
+	alunoID SERIAL PRIMARY KEY,
+	name VARCHAR(150) NOT NULL,
+	email VARCHAR(254) UNIQUE NOT NULL,
+	birth_date DATE NOT NULL,
+	updated_at TIMESTAMP NOT NULL DEFAULT NOW(),
+	created_at TIMESTAMP NOT NULL DEFAULT NOW()
+);
+
+CREATE TABLE instrutores(
+	instrutoresID SERIAL PRIMARY KEY
+);
