@@ -82,6 +82,8 @@ CREATE TYPE MATRICULA_STATUS AS ENUM ('ativa', 'concluida', 'cancelada');
 
 CREATE TABLE matriculas(
 	matriculaID SERIAL PRIMARY KEY,
+	curso_id INT REFERENCES cursos(curso_id),
+	aluno_id INT REFERENCES alunos(aluno_id),
 	valor_pago DECIMAL (5,2) NOT NULL DEFAULT 0.00,
 	status MATRICULA_STATUS NOT NULL DEFAULT 'ativa',
 	updated_at TIMESTAMP NOT NULL DEFAULT NOW(),
@@ -91,6 +93,8 @@ CREATE TABLE matriculas(
 
 CREATE TABLE avaliacoes(
 	id SERIAL PRIMARY KEY,
+	curso_id  INT REFERENCES cursos(curso_id),
+	matriculaID INT REFERENCES matriculas(matriculaID),
 	nota INT CHECK (nota > 0 AND nota < 6),
 	comentario VARCHAR(300),
 	data_avl DATE
