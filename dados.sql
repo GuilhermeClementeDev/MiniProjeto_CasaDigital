@@ -1,13 +1,14 @@
 INSERT INTO alunos (name, email, data_aniversario, updated_at, created_at) 
 VALUES
-('Maria Julia Sales', 'amartins@example.net', '1951-04-17', '2025-03-11 07:11:13.181289', '2024-11-22 04:56:12.526531'),
-('Henry Gabriel Almeida', 'larissamendes@example.net', '1933-07-04', '2025-02-27 10:53:48.040270', '2024-11-05 03:51:25.627824');
+('Milena Mendes', 'tsilveira@example.org', '1977-01-03', '2025-09-29 19:53:25.500279', '2024-10-13 09:23:57.490468'),
+('Eloah Ribeiro', 'isaquecunha@example.com', '1933-10-20', '2025-01-13 18:43:24.169830', '2024-07-31 02:06:58.710350');
 INSERT INTO instrutores (name, email, biografia, updated_at, created_at) 
 VALUES
-('Lorena Duarte', 'vsousa@example.com', 'Quam porro labore expedita necessitatibus molestiae porro. Tempore dolorum maxime unde consectetur quaerat. Praesentium quidem ipsam optio soluta a.
-Id voluptatem animi praesentium omnis nisi maxime.', '2025-05-04 00:48:48.364402', '2025-01-20 09:55:27.006389');
+('Ana Cecília Fogaça', 'bcavalcanti@example.net', 'Quaerat quo ad. Exercitationem aspernatur numquam corrupti.
+Perferendis dolores quas nam a aut deleniti. In veniam libero sapiente iusto voluptatum inventore.', '2025-01-29 17:09:10.606124', '2024-02-13 19:39:31.759056');
 INSERT INTO cursos (name, descricao, nivel, preco, carga_horaria, instrutorID, updated_at, created_at) 
 VALUES
-('nulla', 'Dolorum cumque porro esse ducimus itaque. Aspernatur amet officiis nam itaque expedita.', 'iniciante', '250.72', '55', '1','2025-09-17 12:22:12.093218', '2024-10-10 14:27:04.153980'),
-('laboriosam', 'Sunt consequatur sint incidunt quibusdam distinctio error. Velit sapiente reiciendis esse. Animi tempora repudiandae sint placeat.', 'intermediario', '307.51', '80', '1','2025-09-24 11:38:20.586717', '2025-06-05 20:34:03.418975'),
-;
+('quo', 'Molestias reprehenderit esse numquam incidunt minus quae. Perspiciatis beatae et nihil nam itaque facere.
+Libero optio adipisci facere quae. Rem illum ab beatae harum ullam praesentium.', 'iniciante', '353.82', '73', '1','2025-09-25 20:21:39.211337', '2025-09-22 16:15:59.653472'),
+('corporis', 'Sequi sint ratione ducimus nobis ipsa.
+Vero tempora provident doloribus sunt doloribus beatae. Voluptatem inventore reprehenderit culpa illum.', 'intermediario', '212.1', '146', '1','2025-01-25 02:10:59.512372', '2024-05-19 05:17:00.502059');

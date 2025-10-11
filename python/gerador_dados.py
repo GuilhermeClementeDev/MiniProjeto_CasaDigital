@@ -35,7 +35,6 @@ def gerar_instrutores(file):
 
 def gerar_cursos(file):
 	niveis = ['iniciante', 'intermediario', 'avancado']
-	i = 0
 	file.write("INSERT INTO cursos (name, descricao, nivel, preco, carga_horaria, instrutorID, updated_at, created_at) \nVALUES\n")
 	for i in range(config['CURSOS']):
 		nome = fake.word()
