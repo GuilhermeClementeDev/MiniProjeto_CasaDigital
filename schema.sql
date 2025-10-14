@@ -60,7 +60,7 @@ CREATE TABLE categorias_curso(
 );
 
 CREATE TABLE modulos(
-	modulo_id SERIAL PRIMARY KEY,
+	moduloID SERIAL PRIMARY KEY,
 	cursoID INT REFERENCES cursos(cursoID),
 	name VARCHAR(40) NOT NULL,
 	ordem INT,
@@ -72,8 +72,9 @@ CREATE TYPE AULA_TIPO AS ENUM ('video', 'texto', 'quiz');
 CREATE TABLE aulas(
 	aulaID SERIAL PRIMARY KEY,
 	ordem INT,
+	titulo VARCHAR(40) NOT NULL,
 	tipo AULA_TIPO NOT NULL,
-	modulo_id INT REFERENCES modulos(modulo_id),
+	moduloID INT REFERENCES modulos(moduloID),
 	updated_at TIMESTAMP NOT NULL DEFAULT NOW(),
 	created_at TIMESTAMP NOT NULL DEFAULT NOW()
 );
@@ -82,9 +83,9 @@ CREATE TYPE MATRICULA_STATUS AS ENUM ('ativa', 'concluida', 'cancelada');
 
 CREATE TABLE matriculas(
 	matriculaID SERIAL PRIMARY KEY,
-	cursoID INT REFERENCES cursos(cursoID),
-	alunoID INT REFERENCES alunos(alunoID),
-	valor_pago DECIMAL (5,2) NOT NULL DEFAULT 0.00,
+	cursoID INT NOT NULL REFERENCES cursos(cursoID),
+	alunoID INT NOT NULL REFERENCES alunos(alunoID),
+	valorPago DECIMAL (5,2) NOT NULL DEFAULT 49.90,
 	status MATRICULA_STATUS NOT NULL DEFAULT 'ativa',
 	updated_at TIMESTAMP NOT NULL DEFAULT NOW(),
 	created_at TIMESTAMP NOT NULL DEFAULT NOW(),
