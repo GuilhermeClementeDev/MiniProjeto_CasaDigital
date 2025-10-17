@@ -76,7 +76,8 @@ def gerar_modulos(file):
 #gera aulas a partir da quantidade estabelecida dividindo entre os modulos
 def gerar_aulas(file, cursoID=0):
 	tipo = ['video', 'texto', 'quiz']
-	file.write("INSERT INTO aulas (moduloID, titulo, tipo, ordem) \nVALUES\n")
+	if config['AULAS'] == 0:
+		return  # nada a fazer
 	contador = 0
 	contador_modulos = 0
 	if cursoID == 0:
@@ -84,19 +85,27 @@ def gerar_aulas(file, cursoID=0):
 	else:
 		cursos = [cursoID]
 	modulos = len(cursos) * 5
-	aulas_por_modulo = config['AULAS'] // modulos
+	aulas_por_modulo = max(1, config['AULAS'] // modulos)  # garante pelo menos 1 aula por modulo
+	valores = []
 	for curso in cursos:
 		for i in range(5):
 			contador_modulos += 1
 			moduloID = contador_modulos
 			for ordem in range(aulas_por_modulo):
 				contador += 1
-				titulo = "aula " + str(ordem)
-				type = random.choice(tipo)
-				if contador != config['AULAS']:
-					file.write(f"({moduloID}, '{titulo}', '{type}', {ordem + 1}),\n")
-				else:
-					file.write(f"({moduloID}, '{titulo}', '{type}', {ordem + 1});\n")
+				titulo = "aula " + str(ordem + 1)
+				tipo_aula = random.choice(tipo)
+				valores.append(f"({moduloID}, '{titulo}', '{tipo_aula}', {ordem + 1})")
+				if contador >= config['AULAS']:
+					break
+			if contador >= config['AULAS']:
+				break
+		if contador >= config['AULAS']:
+			break
+
+	if valores:
+		file.write("INSERT INTO aulas (moduloID, titulo, tipo, ordem) \nVALUES\n")
+		file.write(",\n".join(valores) + ";\n")
 
 #gera de maneira aleatorio matriculas para alunos (podendo gerar mais de uma matricula para um mesmo aluno)
 def gerar_matriculas(file):
@@ -189,21 +198,25 @@ def gerar_avaliacoes(file):
 			file.write(";\n")
 
 def gerar_progresso_aulas(file):
+	# Primeiro, pegar a quantidade real de aulas geradas
+	total_aulas = config['AULAS']  # pode ajustar se quiser pegar do banco real
+	total_matriculas = config['MATRICULAS']
+	if total_aulas == 0 or total_matriculas == 0:
+		return  # nada a gerar
 	file.write("INSERT INTO progresso_aulas (matriculaID, aulaID, concluida, finished_at, time_watched) \nVALUES\n")
-	for i in range(1, config['AULAS'] + 1):
-		matriculaID = random.randint(1, config['MATRICULAS'])
+	valores = []
+	for aulaID in range(1, total_aulas + 1):
+		matriculaID = random.randint(1, total_matriculas)
 		concluida = random.choice([True, False])
 		if concluida:
 			finished_at = fake.date_time_between(start_date='-6M', end_date='now')
 			time_watched = random.randint(300, 600)
-			file.write(f"({matriculaID}, {i}, {concluida}, '{finished_at}', {time_watched})")
+			valores.append(f"({matriculaID}, {aulaID}, {concluida}, '{finished_at}', {time_watched})")
 		else:
 			time_watched = random.randint(0, 300)
-			file.write(f"({matriculaID}, {i}, {concluida}, NULL, {time_watched})")
-		if i != config['AULAS']:
-			file.write(",\n")
-		else:
-			file.write(";\n")
+			valores.append(f"({matriculaID}, {aulaID}, {concluida}, NULL, {time_watched})")
+	if valores:
+		file.write(",\n".join(valores) + ";\n")
 
 def main():
 	file = open("sql/dados.sql", "w")
