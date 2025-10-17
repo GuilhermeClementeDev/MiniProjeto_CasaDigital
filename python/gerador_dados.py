@@ -152,7 +152,7 @@ def gerar_categorias_curso(file):
 	file.write(";\n")
 
 def main():
-	file = open("dados.sql", "w")
+	file = open("sql/dados.sql", "w")
 	gerar_alunos(file)
 	gerar_instrutores(file)
 	gerar_cursos(file)
