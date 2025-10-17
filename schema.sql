@@ -28,9 +28,9 @@ CREATE TABLE especialidades(
 );
 
 CREATE TABLE especialidades_instrutor(
-	id SERIAL PRIMARY KEY,
 	instrutorID INT REFERENCES instrutores(instrutorID) ON DELETE CASCADE,
-	especialidadeID INT REFERENCES especialidades(especialidadeID) ON DELETE CASCADE
+	especialidadeID INT REFERENCES especialidades(especialidadeID) ON DELETE CASCADE,
+	PRIMARY KEY (instrutorID, especialidadeID)
 );
 
 CREATE TABLE categorias(
@@ -54,9 +54,9 @@ CREATE TABLE cursos(
 );
 
 CREATE TABLE categorias_curso(
-	id SERIAL PRIMARY KEY,
 	cursoID INT REFERENCES cursos(cursoID),
-	categoriaID INT REFERENCES categorias(categoriaID)
+	categoriaID INT REFERENCES categorias(categoriaID);
+	PRIMARY KEY (cursoID, categoriaID)
 );
 
 CREATE TABLE modulos(
@@ -85,7 +85,7 @@ CREATE TABLE matriculas(
 	matriculaID SERIAL PRIMARY KEY,
 	cursoID INT NOT NULL REFERENCES cursos(cursoID),
 	alunoID INT NOT NULL REFERENCES alunos(alunoID),
-	valorPago DECIMAL (5,2) NOT NULL DEFAULT 49.90,
+	valorPago DECIMAL (5,2) NOT NULL,
 	status MATRICULA_STATUS NOT NULL DEFAULT 'ativa',
 	updated_at TIMESTAMP NOT NULL DEFAULT NOW(),
 	created_at TIMESTAMP NOT NULL DEFAULT NOW(),
