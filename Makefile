@@ -18,6 +18,7 @@ rodar_sql:
 
 clean:
 	@echo "🧹 Limpando arquivos temporários..."
+	rm -rf python/__pycache__
 	@echo "Feito!"
 
 .PHONY: all gerar rodar_sql clean

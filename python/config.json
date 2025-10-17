@@ -1,7 +1,8 @@
 {
-  "ALUNOS": 2,
+  "ALUNOS": 1,
   "INSTRUTORES": 1,
   "CURSOS": 2,
   "AULAS": 50,
-  "MATRICULAS": 80
+  "MATRICULAS": 80,
+  "CATEGORIAS": 5
 }

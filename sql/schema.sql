@@ -55,7 +55,7 @@ CREATE TABLE cursos(
 
 CREATE TABLE categorias_curso(
 	cursoID INT REFERENCES cursos(cursoID),
-	categoriaID INT REFERENCES categorias(categoriaID);
+	categoriaID INT REFERENCES categorias(categoriaID),
 	PRIMARY KEY (cursoID, categoriaID)
 );
 
@@ -89,7 +89,8 @@ CREATE TABLE matriculas(
 	status MATRICULA_STATUS NOT NULL DEFAULT 'ativa',
 	updated_at TIMESTAMP NOT NULL DEFAULT NOW(),
 	created_at TIMESTAMP NOT NULL DEFAULT NOW(),
-	finished_at TIMESTAMP
+	finished_at TIMESTAMP,
+	CONSTRAINT uq_aluno_curso UNIQUE (alunoID, cursoID) -- Constrain baseado nas 2 keys para não ter replicatadas
 );
 
 CREATE TABLE avaliacoes(
