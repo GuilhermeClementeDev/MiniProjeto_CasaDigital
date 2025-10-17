@@ -55,7 +55,7 @@ CREATE TABLE cursos(
 
 CREATE TABLE categorias_curso(
 	cursoID INT REFERENCES cursos(cursoID),
-	categoriaID INT REFERENCES categorias(categoriaID),
+	categoriaID INT REFERENCES categorias(categoriaID);
 	PRIMARY KEY (cursoID, categoriaID)
 );
 
