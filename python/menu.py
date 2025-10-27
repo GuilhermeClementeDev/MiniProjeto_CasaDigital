@@ -27,15 +27,22 @@ def conectar(inicializando_banco=0):
 def query_predefinida():
 	conn = conectar()
 	print("\nEscolha a query:")
-	print("1 - Listar todos cursos")
-	print("2 - Listar pessoas com mais de 18 anos")
+	print("1 - Listar todos os cursos com nome da categoria e do instrutor")
 	opc = input("-> ")
 	cursor = conn.cursor()
 	match opc:
 		case "1":
-			cursor.execute("SELECT * FROM cursos")
-		case "2":
-			cursor.execute("SELECT * FROM pessoas WHERE idade > 18;")
+			cursor.execute("""
+				SELECT cursos.cursoID,
+					cursos.name AS curso,
+					instrutores.name AS instrutor,
+					categorias.name AS categoria
+				FROM cursos
+				LEFT JOIN instrutores ON cursos.instrutorID = instrutores.instrutorID
+				LEFT JOIN categorias_curso ON cursos.cursoID = categorias_curso.cursoID
+				LEFT JOIN categorias ON categorias_curso.categoriaID = categorias.categoriaID
+				ORDER BY cursos.cursoID, categorias.name;
+			""")
 		case _:
 			print("Opção inválida")
 			return
