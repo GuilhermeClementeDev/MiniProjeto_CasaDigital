@@ -1,24 +1,19 @@
-DB_NAME = edutech
-DB_USER = gui
-DB_HOST = localhost
 VENV = venv
 PYTHON = $(VENV)/bin/python3
+REQS = requirements.txt
 
-all: gerar rodar_sql
+all: menu
 
-gerar:
-	@echo "🔧 Gerando dados com o script Python..."
-	@. $(VENV)/bin/activate && $(PYTHON) python/gerador_dados.py
+venv:
+	@echo "🔧 Criando virtualenv e instalando dependências..."
+	python3 -m venv $(VENV)
+	$(PYTHON) -m pip install -r $(REQS)
+	@echo "✅ Virtualenv pronta!"
 
-rodar_sql:
-	@echo "💾 Executando scripts SQL no banco $(DB_NAME)..."
-	sudo -u $(DB_USER) psql -d $(DB_NAME) -f ./sql/schema.sql
-	sudo -u $(DB_USER) psql -d $(DB_NAME) -f ./sql/dados.sql
-	@echo "✅ Banco atualizado com sucesso!"
+menu:
+	@. $(VENV)/bin/activate && $(PYTHON) python/menu.py
 
 clean:
 	@echo "🧹 Limpando arquivos temporários..."
-	rm -rf python/__pycache__
+	rm -rf python/__pycache__ $(VENV)
 	@echo "Feito!"
-
-.PHONY: all gerar rodar_sql clean

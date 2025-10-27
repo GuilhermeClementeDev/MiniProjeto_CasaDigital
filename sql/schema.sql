@@ -1,8 +1,3 @@
-\c postgres;
-DROP DATABASE IF EXISTS edutech;
-CREATE DATABASE edutech;
-\c edutech;
-
 CREATE TABLE alunos(
 	alunoID SERIAL PRIMARY KEY,
 	name VARCHAR(150) NOT NULL,
